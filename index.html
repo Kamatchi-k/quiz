@@ -47,6 +47,100 @@
             color: white;
             font-size: 26px;
         }
+        .bg {
+    background-image: url("roba.jpg");
+    min-height: 90vh;
+    background-size: cover;
+    background-position: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 40px;
+    text-align: center;
+    color: white;
+    margin-top: 20px;
+}
+
+.head {
+    text-align: center;
+    padding: 20px;
+}
+
+p {
+    font-size: large;
+    text-align: justify;
+}
+
+.levels {
+    text-decoration: none;
+    text-align: center;
+    font-size: large;
+    font-weight: 600;
+    background-color: rgb(247, 26, 162);
+    width: 100%;
+    max-width: 230px;
+    padding: 10px;
+    box-sizing: border-box;
+    border: 3px solid white;
+    border-radius: 10px;
+    margin: 5px auto;
+    color: white;
+    font-size: 22px;
+    display: block;
+}
+
+.levels:hover {
+    background-color: white;
+    color: rgb(247, 26, 162);
+    border: 3px solid rgb(247, 26, 162);
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.footer {
+    background-color: black;
+    color: white;
+    text-align: center;
+    padding: 10px;
+}
+
+.profile {
+    text-decoration: none;
+    color: rgb(247, 26, 162);
+    font-weight: bold;
+}
+
+/* Responsive Adjustments */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 30px;
+    }
+
+    p {
+        font-size: medium;
+    }
+
+    .levels {
+        width: 90%;
+    }
+}
+
+@media (max-width: 768px) {
+    h1 {
+        font-size: 36px;
+    }
+
+    p {
+        font-size: large;
+    }
+
+    .levels {
+        max-width: 100%;
+    }
+}
+
 
         .levels:hover {
             background-color:white;
