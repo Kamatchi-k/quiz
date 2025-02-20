@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>css & js</title>
+    <link href="D:\kamatchi-quize\bootstrap-5.3.3-dist\bootstrap-5.3.3-dist\css\bootstrap.min.css"
+        rel="stylesheet">
+    <style>
+        .bg {
+            background-image: url("roba.jpg");
+            min-height: 90vh;
+            background-size: cover;
+            background-position: center;
+        }
+
+        h1 {
+            position: relative;
+    
+            top: 300px;
+            font-size: 50px;
+        }
+
+        .head {
+
+            margin-left: 20px;
+        }
+
+        p {
+            font-size: x-large;
+        }
+
+        .levels {
+            text-decoration: none;
+            text-align: center;
+            font-size: large;
+            font-weight: 600;
+            background-color: rgb(247, 26, 162);
+            width: 100%;
+            max-width: 230px;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 3px solid white;
+            border-radius: 10px;
+            margin: 5px;
+            color: white;
+            font-size: 26px;
+        }
+
+        .levels:hover {
+            background-color:white;
+            color:rgb(247, 26, 162) ;
+            border: 3px solid rgb(247, 26, 162);
+            transition: background-color 0.3s, color 0.3s;
+        }
+        .footer {
+            background-color: black;
+            color: white;
+
+        }
+
+
+        .profile {
+            text-decoration: none;
+        }
+
+        @media (max-width: 576px) {
+
+            /* Mobile view */
+            .head {
+                margin-left: 5px;
+                margin-top: 80px;
+            }
+
+            p,
+            h5 {
+                font-size: medium;
+            }
+
+            .levels {
+                max-width: 90%;
+            }
+        }
+
+        @media (max-width: 768px) {
+
+            /* Tablet view */
+            .head {
+                margin-left: 10px;
+                margin-top: 100px;
+            }
+
+            p,
+            h5 {
+                font-size: large;
+            }
+        }
+        #start{
+            position: relative;
+            top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg w-100 p-1">
+        <div class="head">
+            <h1 style="color: white;"> <b style="position: relative;left: 600px;"> CSS AND JAVA SCRIPT</b></h1><br>
+            <div class="row">
+                <div class="col-lg-8 col-md-8">
+
+                </div>
+                <div class="col-lg-4 col-md-4"></div>
+            </div>
+        </div>
+    </div>
+    <div class="p-4">
+
+        <div id="start" class="d-flex flex-column flex-lg-row justify-content-lg-evenly">
+            <a href="stage1.html" class="levels">Questions (1 - 10)</a>
+            <a href="stage2.html" class="levels">Questions (11 - 20)</a>
+            <a href="stage3.html" class="levels">Questions (21 - 30)</a>
+            <a href="stage4.html" class="levels">Questions (31 - 40)</a>
+
+            <a href="stage5.html" class="levels">Questions (41 - 50)</a>
+        </div>
+
+    </div>
+    <div class="p-4">
+        <h2 style="position: relative;top: 50px;">About</h2>
+        <p style="position: relative;top: 50px;">Hello, I'm <a href="resume.html" class="profile">Kamatchi.</a> A full-stack developer with a passion for
+            creating interactive and dynamic web applications.
+            With experience in both front-end and back-end technologies, proficient in front-end development and UI/UX
+            principles,
+            I specialize in transforming ideas into visually appealing and functional digital experiences.</p>
+    </div>
+    <div style="position: relative; bottom: -50px; height: 30px;font-size: 20px;" class="text-center footer p-3">
+        <h5 style="margin: 10px;">Developed by @ KamatchiKuzhandhaivel</h5>
+
+    </div>
+</body>
+
+</html>

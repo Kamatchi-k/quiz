@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptitude 31-40</title>
+    <style>
+        body {
+            background-color: #d5d5d5;
+            font-family: Arial, sans-serif;
+        }
+
+        .quiz-container {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 700px;
+            margin: 2em auto;
+            padding: 2em;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1em;
+        }
+
+        .choice {
+            font-size: 1em;
+            display: block;
+            margin: 5px 0;
+            padding: 0.7em 1em;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+        }
+
+        .choice:hover {
+            background-color: #2980b9;
+        }
+
+        .choice.correct {
+            background-color: #2ecc71 !important;
+        }
+
+        .choice.incorrect {
+            background-color: #e74c3c !important;
+        }
+
+        #feedback {
+            margin-top: 1em;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .summary {
+            margin-top: 2em;
+        }
+
+        .summary h2 {
+            margin-bottom: 1em;
+        }
+
+        .summary-item {
+            margin-bottom: 1.5em;
+            padding: 1em;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item.correct-answer {
+            background-color: #e8f5e9;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .summary-item.incorrect-answer {
+            background-color: #ffebee;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .summary-item p {
+            margin: 0.5em 0;
+        }
+
+        .correct-text {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .incorrect-text {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1> STAGE 4</h1>
+        
+        <div class="question">
+            <p id="question-text">Question 11: What is the probability of flipping a coin and getting heads?            </p>
+            <div class="choices">
+                <button class="choice" onclick="checkAnswer(0)">1/2</button>
+                <button class="choice" onclick="checkAnswer(1)">1</button>
+                <button class="choice" onclick="checkAnswer(2)">2/2</button>
+                <button class="choice" onclick="checkAnswer(3)">0</button>
+            </div>
+            <p id="feedback"></p>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "How does a WHILE loop start? ", 
+            choices: ["A) for(i=0;i<=5;i++)", "B) for(i<=5;i++)", "C) for(i=0;i<=5)", "D) for i=1 to 5"], 
+            correct: 0},
+            { question: "How do you round the number 7.25 , to the nearest integer ?  ", 
+            choices: ["A) Math.round(7.25)", "B) Math.rnd(7.25)", "C) rnd(7.25)", "D) round(7.25)"],
+             correct: 0 },
+            { question: " How do you find the number with the highest value of x and y?  ", 
+            choices: ["A) Math.max(x,y)", "B)ceil(x,y)", "C) Math.ceil(x,y)", "D) top(x,y)"],
+             correct: 0 },
+            { question: "Which event occurs when the user clicks on an HTML element? ",
+             choices: ["A)  onchange ", "B)  onclick ", "C)  onmouseclick", "D) onmouseover"], 
+             correct: 1},
+
+            { question: "Which operator is used to assign a value to a variable?",
+             choices: ["A) *", "D) x", "C) -", "D) ="], 
+             correct: 3 },
+            { question: "What will the following code return : Boolean(10>9) ", 
+            choices: ["A) NaN", "B) true", "C) false", "D) None of these"],
+             correct: 1},
+
+
+            { question: "Do you know what will be the output of this code? console.log(108 - 015);", 
+            choices: ["A)NaN", "B)3", "C) 5", "D) 13"], 
+            correct: 2 },
+
+
+            { question: "A proper scripting language is an ____",
+             choices: ["A) Machine level programming language", "B) Low level programming language", "C) High level programming language", "D) Assembly level programming language"], 
+             correct: 2 },
+            { question: "Which of the following Attribute is used to include External JS code inside your HTML Document?",
+             choices: ["A) link", "B) src", "C) ext", "D) script"],
+              correct: 1 },
+              { question: "Javascript is ideal to ___",
+             choices: ["A) minimize storage requirements on the web server", "B) increase the loading time of the website", "C) increase the download time for the client", "D) make computations in HTML simpler"],
+              correct: 0 },
+        ];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        const userSelections = [];
+
+        function showQuestion() {
+            const questionText = document.getElementById("question-text");
+            questionText.innerHTML = `<strong>Question ${currentQuestion + 31}</strong>: ${questions[currentQuestion].question}`;
+
+            const choices = document.querySelectorAll(".choice");
+            choices.forEach((choice, index) => {
+                choice.textContent = questions[currentQuestion].choices[index];
+                choice.classList.remove("correct", "incorrect");
+                choice.disabled = false; 
+            });
+
+            const feedback = document.getElementById("feedback");
+            feedback.textContent = "";
+        }
+
+        function checkAnswer(selected) {
+            const choices = document.querySelectorAll(".choice");
+            const feedback = document.getElementById("feedback");
+            const correctIndex = questions[currentQuestion].correct;
+
+            userSelections.push({
+                question: questions[currentQuestion].question,
+                selected: selected,
+                correct: correctIndex
+            });
+
+            
+            choices.forEach((choice, index) => {
+                choice.disabled = true;
+                if (index === correctIndex) {
+                    choice.classList.add("correct"); 
+                }
+            });
+
+            if (selected === correctIndex) {
+                feedback.textContent = "Correct!";
+                correctAnswers++;
+            } else {
+                feedback.textContent = "Incorrect!";
+                choices[selected].classList.add("incorrect");
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+
+                if (currentQuestion < questions.length) {
+                    showQuestion();
+                } else {
+                    showSummary();
+                }
+            }, 200); 
+        }
+        
+        function showSummary() {
+            const quizContainer = document.querySelector(".quiz-container");
+            quizContainer.innerHTML = `<h2>Stage 4 Result</h2><div class="summary"></div>`;
+
+            const summaryContainer = document.querySelector(".summary");
+
+            userSelections.forEach((selection, index) => {
+                const questionObj = questions[index];
+                const isCorrect = selection.selected === selection.correct;
+
+                const summaryItem = document.createElement("div");
+                summaryItem.classList.add("summary-item");
+                summaryItem.classList.add(isCorrect ? "correct-answer" : "incorrect-answer");
+
+                summaryItem.innerHTML = `
+                    <p><strong>Question ${index + 31}:</strong> ${selection.question}</p>
+                    <p><strong>Your Answer:</strong> <span class="${isCorrect ? 'correct-text' : 'incorrect-text'}">
+                        ${questionObj.choices[selection.selected]}
+                    </span></p>
+                    ${!isCorrect ? `<p><strong>Correct Answer:</strong> <span class="correct-text">${questionObj.choices[selection.correct]}</span></p>` : ''}
+                `;
+
+                summaryContainer.appendChild(summaryItem);
+            });
+
+        
+            const totalCorrect = document.createElement("p");
+            totalCorrect.innerHTML = `<strong>You got ${correctAnswers} out of ${questions.length} questions correct.</strong>`;
+            totalCorrect.style.fontSize = "1.2em";
+            totalCorrect.style.marginTop = "1.5em";
+            summaryContainer.appendChild(totalCorrect);
+        }
+
+        
+        showQuestion();
+    </script>
+</body>
+</html>

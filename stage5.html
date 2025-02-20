@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptitude 41-50</title>
+    <style>
+        body {
+            background-color: #d5d5d5;
+            font-family: Arial, sans-serif;
+        }
+
+        .quiz-container {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 700px;
+            margin: 2em auto;
+            padding: 2em;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1em;
+        }
+
+        .choice {
+            font-size: 1em;
+            display: block;
+            margin: 5px 0;
+            padding: 0.7em 1em;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+        }
+
+        .choice:hover {
+            background-color: #2980b9;
+        }
+
+        .choice.correct {
+            background-color: #2ecc71 !important;
+        }
+
+        .choice.incorrect {
+            background-color: #e74c3c !important;
+        }
+
+        #feedback {
+            margin-top: 1em;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .summary {
+            margin-top: 2em;
+        }
+
+        .summary h2 {
+            margin-bottom: 1em;
+        }
+
+        .summary-item {
+            margin-bottom: 1.5em;
+            padding: 1em;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item.correct-answer {
+            background-color: #e8f5e9;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .summary-item.incorrect-answer {
+            background-color: #ffebee;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .summary-item p {
+            margin: 0.5em 0;
+        }
+
+        .correct-text {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .incorrect-text {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1> STAGE 5</h1>
+        
+        <div class="question">
+            <p id="question-text">Question 41: What is the probability of flipping a coin and getting heads?            </p>
+            <div class="choices">
+                <button class="choice" onclick="checkAnswer(0)">1/2</button>
+                <button class="choice" onclick="checkAnswer(1)">1</button>
+                <button class="choice" onclick="checkAnswer(2)">2/2</button>
+                <button class="choice" onclick="checkAnswer(3)">0</button>
+            </div>
+            <p id="feedback"></p>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: "Which of the following function of string object creates a string to be displayed in a big fonts as if it were in a<big> tag> ", 
+            choices: ["A) anchor()", "B) big()", "C) blink()", "D) italics()"], 
+            correct: 1 },
+            { question: " Which built-in method returns the length of the string?", 
+            choices: ["A) length()", "B) size()", "C) index()", "D) None of the above"],
+             correct: 0 },
+            { question: " Which of the following is an advantage of using javascript? ", 
+            choices: ["A) Less server interaction", "B) Immediate feedback to the visitors", "C) Increased interactivity", "D) All of the above"],
+             correct: 3 },
+            { question: " Which of the following is a valid type of function javascript supports? ",
+             choices: ["A)  named function()", "B)  anonymous function()", "C) Both of the above", "D) None of the above"], 
+             correct: 2 },
+            { question: " Which built-in method remove removes the last element from an array and returns that elements ?",
+             choices: ["A) last()", "D) get()", "C) pop()", "D) None of the above"], 
+             correct: 0 },
+            { question: "Which built-in method reverses the order of the elements of an array? ", 
+            choices: ["A) changeOrder(order)", "B) reverse()", "C) sort(order)", "D) None of the above"],
+             correct: 1 },
+            { question: "Which of the following function of Boolean objects returns containing the source of the Boolean object?", 
+            choices: ["A) toSource()", "B)valueOf()", "C) toString()", "D) None of the above"], 
+            correct: 0 },
+            { question: "Which of the following function of srting object is used to match a regular expression against a string?",
+             choices: ["A) concat()", "B) match()", "C) search()", "D) replace()"], 
+             correct: 1 },
+            { question: "Which of the following function of string object returns the calling string value converted to upper case?",
+             choices: ["A) toLocaleUpperCase()", "B) toUpperCase()", "C) toString()", "D) substring()"],
+              correct: 1 },
+              { question: "Which of the following function of string object causes a string to be italic , as if it were in an <i> tag?",
+             choices: ["A) fixed()", "B) fontcolor()", "C) fontsize()", "D) italics()"],
+              correct: 3 },
+        ];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        const userSelections = [];
+
+        function showQuestion() {
+            const questionText = document.getElementById("question-text");
+            questionText.innerHTML = ` <strong>Question ${currentQuestion + 41}:</strong> ${questions[currentQuestion].question}`;
+
+            const choices = document.querySelectorAll(".choice");
+            choices.forEach((choice, index) => {
+                choice.textContent = questions[currentQuestion].choices[index];
+                choice.classList.remove("correct", "incorrect");
+                choice.disabled = false; 
+            });
+
+            const feedback = document.getElementById("feedback");
+            feedback.textContent = "";
+        }
+
+        function checkAnswer(selected) {
+            const choices = document.querySelectorAll(".choice");
+            const feedback = document.getElementById("feedback");
+            const correctIndex = questions[currentQuestion].correct;
+
+            userSelections.push({
+                question: questions[currentQuestion].question,
+                selected: selected,
+                correct: correctIndex
+            });
+
+            
+            choices.forEach((choice, index) => {
+                choice.disabled = true;
+                if (index === correctIndex) {
+                    choice.classList.add("correct"); 
+                }
+            });
+
+            if (selected === correctIndex) {
+                feedback.textContent = "Correct!";
+                correctAnswers++;
+            } else {
+                feedback.textContent = "Incorrect!";
+                choices[selected].classList.add("incorrect");
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+
+                if (currentQuestion < questions.length) {
+                    showQuestion();
+                } else {
+                    showSummary();
+                }
+            }, 200); 
+        }
+        
+        function showSummary() {
+            const quizContainer = document.querySelector(".quiz-container");
+            quizContainer.innerHTML = `<h2>Stage 5 Result</h2><div class="summary"></div>`;
+
+            const summaryContainer = document.querySelector(".summary");
+
+            userSelections.forEach((selection, index) => {
+                const questionObj = questions[index];
+                const isCorrect = selection.selected === selection.correct;
+
+                const summaryItem = document.createElement("div");
+                summaryItem.classList.add("summary-item");
+                summaryItem.classList.add(isCorrect ? "correct-answer" : "incorrect-answer");
+
+                summaryItem.innerHTML = `
+                    <p><strong>Question ${index + 31}:</strong> ${selection.question}</p>
+                    <p><strong>Your Answer:</strong> <span class="${isCorrect ? 'correct-text' : 'incorrect-text'}">
+                        ${questionObj.choices[selection.selected]}
+                    </span></p>
+                    ${!isCorrect ? `<p><strong>Correct Answer:</strong> <span class="correct-text">${questionObj.choices[selection.correct]}</span></p>` : ''}
+                `;
+
+                summaryContainer.appendChild(summaryItem);
+            });
+
+        
+            const totalCorrect = document.createElement("p");
+            totalCorrect.innerHTML = `<strong>You got ${correctAnswers} out of ${questions.length} questions correct.</strong>`;
+            totalCorrect.style.fontSize = "1.2em";
+            totalCorrect.style.marginTop = "1.5em";
+            summaryContainer.appendChild(totalCorrect);
+        }
+
+        
+        showQuestion();
+    </script>
+</body>
+</html>
