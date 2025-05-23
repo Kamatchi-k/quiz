@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aptitude 21-30</title>
+    <style>
+        body {
+            background-color: #d5d5d5;
+            font-family: Arial, sans-serif;
+        }
+
+        .quiz-container {
+            box-sizing: border-box;
+            width: 100%;
+            max-width: 700px;
+            margin: 2em auto;
+            padding: 2em;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        .choices {
+            display: flex;
+            flex-direction: column;
+            margin-top: 1em;
+        }
+
+        .choice {
+            font-size: 1em;
+            display: block;
+            margin: 5px 0;
+            padding: 0.7em 1em;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            text-align: left;
+        }
+
+        .choice:hover {
+            background-color: #2980b9;
+        }
+
+        .choice.correct {
+            background-color: #2ecc71 !important;
+        }
+
+        .choice.incorrect {
+            background-color: #e74c3c !important;
+        }
+
+        #feedback {
+            margin-top: 1em;
+            font-weight: bold;
+            font-size: 1.1em;
+        }
+
+        .summary {
+            margin-top: 2em;
+        }
+
+        .summary h2 {
+            margin-bottom: 1em;
+        }
+
+        .summary-item {
+            margin-bottom: 1.5em;
+            padding: 1em;
+            border-bottom: 1px solid #ccc;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+        }
+
+        .summary-item.correct-answer {
+            background-color: #e8f5e9;
+            border-left: 5px solid #2ecc71;
+        }
+
+        .summary-item.incorrect-answer {
+            background-color: #ffebee;
+            border-left: 5px solid #e74c3c;
+        }
+
+        .summary-item p {
+            margin: 0.5em 0;
+        }
+
+        .correct-text {
+            color: #2ecc71;
+            font-weight: bold;
+        }
+
+        .incorrect-text {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="quiz-container">
+        <h1>STAGE 3</h1>
+        
+        <div class="question">
+            <p id="question-text">Question 11: What is the probability of flipping a coin and getting heads?            </p>
+            <div class="choices">
+                <button class="choice" onclick="checkAnswer(0)">1/2</button>
+                <button class="choice" onclick="checkAnswer(1)">1</button>
+                <button class="choice" onclick="checkAnswer(2)">2/2</button>
+                <button class="choice" onclick="checkAnswer(3)">0</button>
+            </div>
+            <p id="feedback"></p>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            { question: " Which of the following is the correct syntax to select all paragraph elements in a div element?  ", 
+            choices: ["A) div p", "B) p", "C) div#p", "D) div ~ p "], 
+            correct: 0 },
+            { question: "Which of the following is the correct syntax to select thep siblings of a div element?", 
+            choices: ["A) p", "B) div + p", "C) div p", "D) div ~ p"],
+             correct: 3 },
+            { question: " Which of the following CSS property is used to add shadows to the text?  ", 
+            choices: ["A) text-shadow", "B) text-stroke ", "C) text-overflow", "D) text-decoration"],
+             correct: 0 },
+            { question: " The CSS property used to draw a line around the elements outside the border?",
+             choices: ["A) border", "B) outline", "C) padding", "D) line"], 
+             correct: 1},
+            { question: "Which of the following is not a value of the font-variant property in CSS?",
+             choices: ["A) normal", "B) small-caps", "C) large-caps ", "D) inherit "], 
+             correct: 2 },
+
+            { question: "Inside which HTML element do we put the JavaScript? ", 
+            choices: ["A) <javascript>", "B) <js>", "C) <script>", "D) <scripting"],
+             correct: 2 },
+
+            { question: "Do you know what will be the output of this code? console.log(typeof typeof 1); ", 
+            choices: ["A) string ", "B) number", "C) 1 ", "D) true"], 
+            correct: 0 },
+            
+            { question: "Where is the correct place to insert a JavaScript? ",
+             choices: ["A) The <body> section ", "B) The <head> section ", "C) Both the <body> section and the <head> section are correct ", "D) Both the <body> section and the <head> section are wrong "], 
+             correct: 2 },
+
+            { question: "Can you guess what will be the output of the code below? console.log(typeof NaN);",
+             choices: ["A) NaN", "B) number", "C) null", "D) undefined"],
+              correct: 1 },
+
+              { question: "How to write an IF statement in java script?",
+             choices: ["A)if i = 5 then ", "B) if i == 5 then", "C) if i = 5 ", "D)if (i == 5) "],
+              correct: 3 },
+        ];
+
+        let currentQuestion = 0;
+        let correctAnswers = 0;
+        const userSelections = [];
+
+        function showQuestion() {
+            const questionText = document.getElementById("question-text");
+            questionText.innerHTML = `<strong>Question ${currentQuestion + 21}</strong>: ${questions[currentQuestion].question}`;
+
+            const choices = document.querySelectorAll(".choice");
+            choices.forEach((choice, index) => {
+                choice.textContent = questions[currentQuestion].choices[index];
+                choice.classList.remove("correct", "incorrect");
+                choice.disabled = false; 
+            });
+
+            const feedback = document.getElementById("feedback");
+            feedback.textContent = "";
+        }
+
+        function checkAnswer(selected) {
+            const choices = document.querySelectorAll(".choice");
+            const feedback = document.getElementById("feedback");
+            const correctIndex = questions[currentQuestion].correct;
+
+            userSelections.push({
+                question: questions[currentQuestion].question,
+                selected: selected,
+                correct: correctIndex
+            });
+
+            
+            choices.forEach((choice, index) => {
+                choice.disabled = true;
+                if (index === correctIndex) {
+                    choice.classList.add("correct"); 
+                }
+            });
+
+            if (selected === correctIndex) {
+                feedback.textContent = "Correct!";
+                correctAnswers++;
+            } else {
+                feedback.textContent = "Incorrect!";
+                choices[selected].classList.add("incorrect");
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+
+                if (currentQuestion < questions.length) {
+                    showQuestion();
+                } else {
+                    showSummary();
+                }
+            }, 1000); 
+        }
+        
+        function showSummary() {
+            const quizContainer = document.querySelector(".quiz-container");
+            quizContainer.innerHTML = `<h2>Stage 3 Result</h2><div class="summary"></div>`;
+
+            const summaryContainer = document.querySelector(".summary");
+
+            userSelections.forEach((selection, index) => {
+                const questionObj = questions[index];
+                const isCorrect = selection.selected === selection.correct;
+
+                const summaryItem = document.createElement("div");
+                summaryItem.classList.add("summary-item");
+                summaryItem.classList.add(isCorrect ? "correct-answer" : "incorrect-answer");
+
+                summaryItem.innerHTML = `
+                    <p><strong>Question ${index + 21}:</strong> ${selection.question}</p>
+                    <p><strong>Your Answer:</strong> <span class="${isCorrect ? 'correct-text' : 'incorrect-text'}">
+                        ${questionObj.choices[selection.selected]}
+                    </span></p>
+                    ${!isCorrect ? `<p><strong>Correct Answer:</strong> <span class="correct-text">${questionObj.choices[selection.correct]}</span></p>` : ''}
+                `;
+
+                summaryContainer.appendChild(summaryItem);
+            });
+
+        
+            const totalCorrect = document.createElement("p");
+            totalCorrect.innerHTML = `<strong>You got ${correctAnswers} out of ${questions.length} questions correct.</strong>`;
+            totalCorrect.style.fontSize = "1.2em";
+            totalCorrect.style.marginTop = "1.5em";
+            summaryContainer.appendChild(totalCorrect);
+        }
+
+        
+        showQuestion();
+    </script>
+</body>
+</html>
